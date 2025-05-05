@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="cadastroLogin.css">
+</head>
+
+<body class="container-row">
+    <div class="container-left">
+        <img src="" alt="" width="350px" height="350px">
+    </div>
+
+    <div class="container-column right-color">
+        <div class="container-column container-center">
+            <h1>Cadastro</h1>
+        </div>
+
+        <div class="container-row">
+            <div class="ipt-container first">
+                <p>Primeiro nome</p>
+                <input class="emp-ipt">
+            </div>
+
+            <div class="ipt-container second">
+                <p>Nome de Usuário</p>
+                <input class="user-ipt">
+            </div>
+
+        </div>
+
+        <div class="container-row">
+
+            <div class="ipt-container second">
+                <p>Email</p>
+                <input class="email-ipt">
+                <p id="msgEmail" style="font-size: 14px;"></p>
+            </div>
+
+        </div>
+
+        <div class="container-row">
+
+            <div class="ipt-container second">
+                <p>Você toca algum instrumento?</p>
+                <select id="tocaInstrumento" onchange="mostrarSelectInstrumentos()">
+                    <option value="">Selecione</option>
+                    <option value="sim">Sim</option>
+                    <option value="nao">Não</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- Checkboxes de instrumentos -->
+        <div class="container-row" id="campoInstrumentos" style="display: none;">
+
+            <div class="ipt-container second">
+                <p>Selecione os instrumentos:</p>
+                <label><input type="checkbox" name="instrumento" value="violao"> Violão</label><br>
+                <label><input type="checkbox" name="instrumento" value="teclado"> Teclado</label><br>
+                <label><input type="checkbox" name="instrumento" value="piano"> Piano</label><br>
+                <label><input type="checkbox" name="instrumento" value="outros"> Outros</label><br>
+                <p id="msgInstrumento" style="color: red; display: none;">Selecione pelo menos um instrumento</p>
+            </div>
+
+        </div>
+
+        <div class="container-row">
+
+            <div class="ipt-container first">
+                <p>Senha</p>
+                <input class="pwd-ipt" type="password">
+                <p id="msgPwd" style="font-size: 14px;"></p>
+            </div>
+
+            <div class="ipt-container second">
+                <p>Confirmar senha</p>
+                <input class="pwd-ipt" type="password">
+            </div>
+
+        </div>
+
+        <div class="container-column container-center">
+            <button onclick="cadastrar()">
+                <h3><a class="txt-button">Cadastrar</a></h3>
+            </button>
+            <br>
+            <i>Já possui uma conta?</i>
+            <a class="txt-a" href="login.html"><i><u>Fazer login</u></i></a>
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script>
+    function mostrarSelectInstrumentos() {
+        var escolha = document.getElementById("tocaInstrumento").value;
+        var campoInstrumentos = document.getElementById("campoInstrumentos");
+        var msgInstrumento = document.getElementById("msgInstrumento");
+
+        if (escolha === "sim") {
+            campoInstrumentos.style.display = "block";
+        }
+        else {
+            campoInstrumentos.style.display = "none";
+            msgInstrumento.style.display = "none";
+        }
+    }
+
+    function cadastrar() {
+        var permCadastro = true;
+
+        // EMAIL
+        var email = document.querySelector(".email-ipt").value;
+        var msgEmail = document.getElementById("msgEmail");
+
+        if (!email.includes("@gmail.com") || email.indexOf("@gmail.com") === 0) {
+            msgEmail.style.color = "red";
+            msgEmail.innerHTML = "Email inválido";
+            permCadastro = false;
+        }
+        else {
+            msgEmail.style.color = "green";
+            msgEmail.innerHTML = "Email válido";
+        }
+
+        // SENHA
+        var senha = document.querySelector(".pwd-ipt").value;
+        var msgPwd = document.getElementById("msgPwd");
+
+        if (senha.length < 8) {
+            msgPwd.style.color = "red";
+            msgPwd.innerHTML = "Senha precisa ter no mínimo 8 caracteres";
+            permCadastro = false;
+        }
+        else {
+            msgPwd.style.color = "green";
+            msgPwd.innerHTML = "Senha válida";
+        }
+
+        // INSTRUMENTOS
+        var tocaInstrumento = document.getElementById("tocaInstrumento").value;
+        var checkboxes = document.querySelectorAll('input[name="instrumento"]:checked');
+        var msgInstrumento = document.getElementById("msgInstrumento");
+
+        if (tocaInstrumento === "sim" && checkboxes.length === 0) {
+            msgInstrumento.style.display = "block";
+            permCadastro = false;
+        }
+        else {
+            msgInstrumento.style.display = "none";
+        }
+
+        // FINAL
+        if (permCadastro) {
+            alert("Cadastro realizado com sucesso!");
+            // redirecionar para a pag login
+        }
+        else {
+            alert("Preencha os campos corretamente.");
+        }
+    }
+</script>

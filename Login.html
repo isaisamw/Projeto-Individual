@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="Login.css">
+</head>
+
+<body class="container-row">
+    <div class="container-left">
+        <img src="" alt="" width="350px" height="350px">
+    </div>
+    <div class="container-column">
+
+        <div class="container-column container-center">
+            <h1>Login</h1>
+        </div>
+
+        <div class="container-row"></div>
+
+        <div class="container-row">
+
+            <div class="ipt-container first">
+                <p>Nome de Usuário</p>
+                <input class="usuario-ipt" placeholder="Digite aqui" id="usuario">
+            </div>
+
+            <div class="ipt-container second">
+                <p>Senha</p>
+                <input class="pwd-ipt" type="password" id="iptPwd"> <br>
+            </div>
+
+        </div>
+
+        <div class="container-column container-center">
+            <button>
+                <h3><a class="txt-button" onclick="entrar()">Entrar</a></h3>
+            </button> <br>
+            <i>Não Possui uma conta?</i>
+            <a class="txt-a" href="cadastro.html"><i> <u> Fazer cadastro </u></i></a>
+        </div>
+
+    </div>
+    
+</body>
+</html>
+<script>
+    var permCadastro = true
+    function entrar() {
+        iptPwd.value = '';
+        iptEmail.value = '';
+    }
+</script>
