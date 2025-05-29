@@ -1,18 +1,17 @@
 # Projeto-Individual
 Projeto individual SPTech, 1° Semestre - IsBieber.
 # 🎤 IsBieber 
-Um site desenvolvido para o projeto Individual Primeiro semestre. Feito por uma Belieber, com funcionalidades que unem informação, nostalgia e diversão.
+Um site desenvolvido para o projeto Individual Primeiro semestre. Com funcionalidades que unem informação, nostalgia e diversão.
 
 # 💡 Objetivo
 IsBieber tem como proposta ser um espaço digital onde fãs possam relembrar momentos marcantes da carreira do Justin, ver curiosidades, ouvir e aprender suas músicas, e muito mais.
 
 # ✨ Funcionalidades (planejadas e em desenvolvimento)
 - Página inicial com destaques da carreira
-- Linha do tempo interativa com marcos importantes utilizando infográfico
+- Linha do tempo com marcos importantes utilizando infográfico
 - Login e Cadastro de usuários
 - Teste de personalidade, com gráficos
-- Galeria de wallpapers
-- Álbuns com letras, traduções e partituras (personalizadas por instrumento)
+- Álbuns com letras, traduções e partituras
 - Player de música
 
 # 🛠️ Tecnologias utilizadas
