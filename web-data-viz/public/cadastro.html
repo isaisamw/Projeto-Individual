@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - IsBieber</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login">
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="card card-cadastro">
+                <h2>Cadastro</h2>
+                <div class="formulario">
+
+                    <div class="campo">
+                        <span>Nome completo:</span>
+                        <input id="nome_input" type="text" placeholder="Seu nome" />
+                    </div>
+
+                    <div class="campo">
+                        <span>Nome de usuário:</span>
+                        <input id="usuario_input" type="text" placeholder="Ex: belieber123" />
+                    </div>
+
+                    <div class="campo">
+                        <span>Email:</span>
+                        <input id="email_input" type="text" placeholder="seuemail@dominio.com" />
+                    </div>
+
+                    <div class="campo">
+                        <span>Você toca algum instrumento?</span>
+                        <select id="instrumento_select" onchange="mostrarInstrumentos()">
+                            <option value="">Selecione</option>
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                        </select>
+                    </div>
+
+                    <div class="campo" id="instrumentos_check" style="display: none;">
+                        <span>Quais instrumentos?</span><br>
+                        <label><input type="checkbox" name="instrumento" value="violao"> Violão</label><br>
+                        <label><input type="checkbox" name="instrumento" value="teclado"> Teclado</label><br>
+                        <label><input type="checkbox" name="instrumento" value="outros"> Outros</label>
+                        <p id="msg_instrumento" style="color: red; display: none;">Selecione pelo menos um instrumento
+                        </p>
+                    </div>
+
+                    <div class="campo">
+                        <span>Senha:</span>
+                        <input id="senha_input" type="password" placeholder="******" />
+                    </div>
+
+                    <div class="campo">
+                        <span>Confirmar senha:</span>
+                        <input id="confirmacao_senha_input" type="password" placeholder="******" />
+                    </div>
+
+                    <button class="botao" onclick="cadastrar()">Cadastrar</button>
+                </div>
+                <div id="div_aguardar" class="loading-div">
+                    <img src="./assets/circle-loading.gif" id="loading-gif" />
+                </div>
+                <div id="div_erros_login"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    function mostrarInstrumentos() {
+        var valor = instrumento_select.value;
+        var campo = document.getElementById("instrumentos_check");
+        var aviso = document.getElementById("msg_instrumento");
+
+        if (valor == "sim") {
+            campo.style.display = "block";
+        } else {
+            campo.style.display = "none";
+            aviso.style.display = "none";
+        }
+    }
+
+    function cadastrar() {
+        var nomeVar = nome_input.value;
+        var usuarioVar = usuario_input.value;
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+        var confirmarVar = confirmacao_senha_input.value;
+        var tocaInstrumento = instrumento_select.value;
+        var instrumentos = document.querySelectorAll('input[name="instrumento"]:checked');
+        var msgErro = document.getElementById("mensagem_erro");
+        var msgCard = document.getElementById("cardErro");
+
+        if (
+            nomeVar == "" ||
+            usuarioVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" ||
+            confirmarVar == ""
+        ) {
+            msgCard.style.display = "block";
+            msgErro.innerHTML = "Preencha todos os campos obrigatórios.";
+            return false;
+        }
+
+        if (!emailVar.includes("@") || !emailVar.includes(".com")) {
+            msgCard.style.display = "block";
+            msgErro.innerHTML = "Email inválido. Use um formato válido como nome@dominio.com";
+            return false;
+        }
+
+        if (senhaVar.length < 8) {
+            msgCard.style.display = "block";
+            msgErro.innerHTML = "A senha precisa ter pelo menos 8 caracteres.";
+            return false;
+        }
+
+        if (senhaVar != confirmarVar) {
+            msgCard.style.display = "block";
+            msgErro.innerHTML = "As senhas não coincidem.";
+            return false;
+        }
+
+        if (tocaInstrumento == "sim" && instrumentos.length == 0) {
+            document.getElementById("msg_instrumento").style.display = "block";
+            msgCard.style.display = "block";
+            msgErro.innerHTML = "Selecione pelo menos um instrumento.";
+            return false;
+        }
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nome: nomeVar,
+                usuario: usuarioVar,
+                email: emailVar,
+                senha: senhaVar,
+                instrumentos: Array.from(instrumentos).map(i => i.value)
+            })
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    msgCard.style.display = "block";
+                    msgErro.innerHTML = "Cadastro realizado com sucesso! Redirecionando...";
+
+                    setTimeout(() => {
+                        window.location = "login.html";
+                    }, 2000);
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none";
+    }
+</script>
