@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Tela Inicial = IsBieber</title>
+  <link rel="stylesheet" href="css/inicio.css">
+</head>
+<body>
+
+  <header class="topo-site">
+    <div class="boas-vindas">
+      <h1>Bem-vindo(a), !</h1>
+    </div>
+
+    <div class="usuario-area" onclick="toggleMenu()">
+      <img src="./assets/icon/user.png" alt="Ícone do Usuário" class="icone-usuario">
+      <div class="menu-usuario" id="menuUsuario">
+        <a href="#">Sair</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="tela-inicial">
+  <div class="conteudo-central">
+    <p class="subtitulo">O que você gostaria de fazer agora?</p>
+    <div class="opcoes-container">
+      <a href="quiz.html" class="opcao-btn"> Fazer Quiz</a>
+      <a href="albuns.html" class="opcao-btn"> Ver Músicas</a>
+      <a href="curiosidades.html" class="opcao-btn"> Ver Curiosidades</a>
+    </div>
+  </div>
+</main>
+<div class="menu-lateral" id="menuLateral">
+  <button class="fechar-menu" onclick="fecharMenu()">✕</button>
+  <ul>
+    <li><a href="#">Perfil</a></li>
+    <li><a href="#">Sair</a></li>
+  </ul>
+</div>
+<div class="fundo-escuro" id="fundoEscuro" onclick="fecharMenu()"></div>
+</body>
+</html>
+<script>
+    function toggleMenu() {
+      const menu = document.getElementById('menuUsuario');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+const menu = document.getElementById('menuLateral');
+const fundo = document.getElementById('fundoEscuro');
+
+  function toggleMenu() {
+    menu.style.right = '0';
+    fundo.style.display = 'block';
+  }
+
+  function fecharMenu() {
+    menu.style.right = '-300px';
+    fundo.style.display = 'none';
+  }
+  
+  </script>

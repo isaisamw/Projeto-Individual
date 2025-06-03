@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - IsBieber</title>
-    <link rel="stylesheet" href="login.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - IsBieber</title>
+  <link rel="stylesheet" href="./css/login.css">
 </head>
+
 <body>
   <div class="login">
     <div class="alerta_erro">
@@ -19,18 +21,14 @@
         <h2>Bem-vindo de volta!</h2>
         <div class="formulario">
           <div class="campo">
-            <span>Nome de Usuário:</span>
-            <input id="usuario_input" type="text" placeholder="Ex: belieber123" />
+            <span>Email:</span>
+            <input id="email_input" type="text" placeholder="Ex: usuario@email.com" />
           </div>
           <div class="campo">
             <span>Senha:</span>
             <input id="senha_input" type="password" placeholder="******" />
           </div>
           <button class="botao" onclick="entrar()">Entrar</button>
-        </div>
-
-        <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
         </div>
 
         <div id="div_erros_login"></div>
@@ -43,21 +41,16 @@
 
 <script>
   function entrar() {
-    aguardar();
 
-    var usuarioVar = usuario_input.value;
+    var emailVar = email_input.value;
     var senhaVar = senha_input.value;
 
-    if (usuarioVar == "" || senhaVar == "") {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML = "Preencha todos os campos para continuar.";
-      finalizarAguardar();
+    if (emailVar == "" || senhaVar == "") {
+      alert ('Preencha todos os campos para continuar.')
       return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
     }
 
-    console.log("LOGIN: ", usuarioVar);
+    console.log("LOGIN: ", emailVar);
     console.log("SENHA: ", senhaVar);
 
     fetch("/usuarios/autenticar", {
@@ -66,36 +59,34 @@
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        usuarioServer: usuarioVar,
+        emailServer: emailVar,
         senhaServer: senhaVar
       })
     }).then(function (resposta) {
       if (resposta.ok) {
         resposta.json().then(json => {
-          sessionStorage.USUARIO = json.usuario;
-          sessionStorage.NOME = json.nome;
+          sessionStorage.EMAIL_USUARIO = json.email;
+          sessionStorage.NOME_USUARIO = json.nome;
           sessionStorage.ID_USUARIO = json.id;
 
           setTimeout(function () {
-            window.location = "./dashboard/cards.html";
+            window.location = "inicio.html";
           }, 1000);
         });
       } else {
         resposta.text().then(texto => {
-          mensagem_erro.innerHTML = texto;
-          cardErro.style.display = "block";
-          finalizarAguardar();
+          // mensagem_erro.innerHTML = texto;
+          // cardErro.style.display = "block";
+      
         });
       }
     }).catch(function (erro) {
       console.log(erro);
-      finalizarAguardar();
+      
     });
 
     return false;
   }
 
-  function sumirMensagem() {
-    cardErro.style.display = "none";
-  }
+  
 </script>
