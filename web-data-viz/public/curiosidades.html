@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curiosidades - Justin Bieber</title>
+    <link rel="stylesheet" href="./css/curiosidades.css">
+</head>
+<body>
+   <div class="tela-curiosidades">
+    <h2 class="titulo-principal">Curiosidades sobre Justin Bieber</h2>
+
+    <button onclick="mostrarCuriosidade()" class="botao-sortear">Ver uma curiosidade</button>
+
+    <div class="area-curiosidade">
+      <h3 id="tituloCuriosidade" class="titulo-curiosidade"></h3>
+      <p id="textoCuriosidade" class="texto-curiosidade"></p>
+    </div>
+  </div>
+  <div class="area-carregando" id="carregando" style="display: none;">
+  <p class="texto-sorteando">Sorteando curiosidade...</p>
+</div>
+
+</body>
+</html>
+  <script>
+    const curiosidades = [
+      {
+        titulo: "Ele foi descoberto no YouTube por acidente",
+        texto: "Justin postava vídeos cantando covers no YouTube só para amigos e família. Scooter Braun, um empresário da música, encontrou um dos vídeos por acaso enquanto procurava outro artista – e viu potencial ali. Isso mudou tudo."
+      },
+      {
+        titulo: "Ele tocava vários instrumentos desde pequeno (sozinho!)",
+        texto: "Antes dos 10 anos, Justin já tocava bateria, piano, violão e trompete, tudo autodidata. Isso ajudou a mostrar que ele era mais que uma 'voz bonita'."
+      },
+      {
+        titulo: "Tem um recorde Guinness por... ser popular!",
+        texto: "Justin quebrou mais de 20 recordes do Guinness, incluindo:<br>– Primeiro artista solo com 3 álbuns nº1 antes dos 18 anos<br>– Artista mais jovem a alcançar 100 milhões de seguidores no Twitter<br>– Maior número de semanas consecutivas no Top 10 do Spotify<br>– Primeiro artista a atingir 90 milhões de ouvintes mensais no Spotify"
+      },
+      {
+        titulo: "A música “Baby” já foi o vídeo mais visto do YouTube",
+        texto: "Por anos, “Baby” liderou como o vídeo mais visto (e mais comentado) do YouTube. Também foi, ao mesmo tempo, um dos mais curtidos e mais odiados, mostrando como ele dividia opiniões no início."
+      },
+      {
+        titulo: "O 'Justice Album' e as causas sociais",
+        texto: "Seu álbum 'Justice' (2021) não é apenas sobre música. Muitas das faixas contêm amostras de discursos de Martin Luther King Jr., e Bieber declarou que o álbum foi feito para 'fornecer conforto e fazer uma conexão' e promover a justiça social."
+      }
+    ];
+
+function mostrarCuriosidade() {
+  const areaCuriosidade = document.querySelector('.area-curiosidade');
+  const areaCarregando = document.getElementById('carregando');
+  const titulo = document.getElementById("tituloCuriosidade");
+  const texto = document.getElementById("textoCuriosidade");
+
+  // Esconde curiosidade e mostra "carregando"
+  areaCuriosidade.style.display = "none";
+  areaCarregando.style.display = "block";
+
+  // Aguarda 3 segundos para "sortear"
+  setTimeout(() => {
+    const numero = Math.floor(Math.random() * curiosidades.length);
+    const curiosidade = curiosidades[numero];
+
+    // Atualiza os textos
+    titulo.innerHTML = curiosidade.titulo;
+    texto.innerHTML = curiosidade.texto;
+
+    // Esconde carregamento e mostra curiosidade
+    areaCarregando.style.display = "none";
+    areaCuriosidade.style.display = "block";
+  }, 2000);
+}
+  </script>

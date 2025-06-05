@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Personalidade - isBieber</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+
+<body onload="onloadEsconder()">
+    <div id="quizContainer">
+        <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+
+        <div id="jogo" class="width-fit-content flex-colunar border-secondary">
+            <div id="infoQuestao" class="padding-8">
+                <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
+                    questões.</span>
+            </div>
+
+            <div id="perguntaDaQuestaoAtual" class="padding-8">
+                <span id="spanQuestaoExibida" class="text-bold"></span>
+            </div>
+
+            <div id="infoAlternativas" class="padding-8">
+                <span><em>Escolha uma opção dentre as abaixo:</em></span>
+            </div>
+
+            <div id="opcoes" class="flex-colunar padding-8">
+                <span>
+                    <input type="radio" id="primeiraOpcao" name="option" class="radio" value="A" />
+                    <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
+                </span>
+                <span>
+                    <input type="radio" id="segundaOpcao" name="option" class="radio" value="B" />
+                    <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
+                </span>
+                <span>
+                    <input type="radio" id="terceiraOpcao" name="option" class="radio" value="C" />
+                    <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
+                </span>
+                <span>
+                    <input type="radio" id="quartaOpcao" name="option" class="radio" value="D" />
+                    <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
+                </span>
+            </div>
+
+            <div id="botoes" class="flex-colunar padding-8">
+                <button onclick="avancarQuestao()" id="btnAvancar">Avançar para próxima questão</button>
+            </div>
+        </div>
+
+        <div id="resultadoFinalContainer" class="flex-colunar width-fit-content border-primary">
+            <h2 id="tituloResultado">Seu Resultado:</h2>
+            <p id="personalidadeFinal" class="text-bold"></p>
+            <p id="descricaoPersonalidade"></p>
+            <button onclick="tentarNovamente()" id="btnTentarNovamente">Tentar novamente</button>
+        </div>
+    </div>
+
+    <script>
+        /*  function obterDadosGrafico() {
+        fetch(`/usuarios/dadosgrafico`, { cache: 'no-store' })
+        .then(response => response.ok ? response.json() : Promise.reject(response.statusText))
+        .then(resposta => {
+          console.log(resposta)
+          plotargrafico(resposta);
+        })
+        .catch(err => console.error('Erro teste:', err));
+    }
+    
+    
+    
+      function plotargrafico(resposta) {
+    
+    
+      vt_tipo = [];
+      vt_qtd = [];
+    
+      for (let i = 0; i < resposta.length; i++) {
+        vt_tipo.push(resposta[i].tipo);
+        vt_qtd.push(resposta[i].qtdTipoDoador);
+      }
+      console.log(vt_tipo);
+      console.log(vt_qtd);
+    
+    
+      var maior = 0;
+      var maiordoador = '';
+      var menor = 99;
+      var menordoador = '';
+      var totaluser = 0;
+    
+    
+      for (var i = 0; i < vt_qtd.length; i++) {
+    
+        totaluser += vt_qtd[i]
+        if (vt_qtd[i] > maior) {
+          maior = vt_qtd[i]
+          maiordoador = vt_tipo[i]
+        }
+        if (vt_qtd[i] < menor) {
+          menor = vt_qtd[i]
+          menordoador = vt_tipo[i]
+        }
+    
+    
+      }
+    
+      for (var i = 0; i < vt_qtd.length; i++) {
+        
+        var resultado = vt_qtd[i]/totaluser*100
+        vt_qtd[i] = resultado.toFixed(2)
+        
+      }
+    
+      kpiuser.innerHTML = totaluser;
+      kpimaior.innerHTML = maiordoador;
+      kpimenor.innerHTML = menordoador;
+    
+    
+    
+    
+      const ctz = document.getElementById("barras1")
+      const grafico = new Chart(ctz, {
+        type: 'doughnut',
+        data: {
+          labels: vt_tipo,
+          datasets: [{
+            data: vt_qtd,
+            backgroundColor: ['#f14b47', '#eb8bce', '#38b6ff','#00d929'],
+            borderColor: '#00aeef',
+            borderWidth: 10
+          }]
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'Porcentagem de Cada Tipo de Doador',
+              color: '#ffffff',
+              font: {
+                size: 25,
+                family: 'Arial',
+                weight: 'bold'
+              },
+              padding: {
+                top: 10,
+                bottom: 10
+              }
+            },
+            legend: {
+              display: false,
+              position: 'left',
+              labels: {
+                color: '#ffffff'
+              }
+            },
+            datalabels: {
+              color: '#fff',
+              font: {
+                weight: 'bold',
+                size: 26
+              },
+              formatter: function (value, context) {
+                return value + "%"
+              }
+            },
+    
+          },
+          cutout: '60%'
+        },
+        plugins: [ChartDataLabels]
+      });
+    
+      } */
+
+
+        const perguntas = [
+            {
+                pergunta: "1. Em um dia livre, o que você mais gosta de fazer?",
+                opcoes: {
+                    A: "Um jantar especial para alguém ou assistir a um filme clichê.",
+                    B: "Escrever, desenhar, tocar um instrumento ou aprender algo novo.",
+                    C: "Planejar uma viagem de última hora ou praticar um esporte.",
+                    D: "Ir às compras, montar looks ou pesquisar as últimas tendências de moda."
+                }
+            },
+            {
+                pergunta: "2. Qual tipo de música do Justin Bieber mais te agrada?",
+                opcoes: {
+                    A: "As mais 'fofas' como '2 Much' ou 'One time'.",
+                    B: "Músicas com batidas inovadoras ou letras poéticas, tipo 'As I Am' ou 'What Do You Mean?'.",
+                    C: "Músicas mais animadas e com energia, como 'Sorry' ou 'Im the One'.",
+                    D: "Músicas que têm um clipe com looks icônicos ou que definem uma era de estilo, tipo 'Yummy' ou 'Company'."
+                }
+            },
+            {
+                pergunta: "3. Qual seria o presente ideal para você receber?",
+                opcoes: {
+                    A: "Uma carta de amor emocionante ou um buquê de flores.",
+                    B: "Um kit de arte, um instrumento musical ou ingressos para um show.",
+                    C: "Uma experiência, como um salto de paraquedas, ou escalada.",
+                    D: "Uma peça de roupa exclusiva, um acessório, maquiagem, ou um voucher para uma loja de roupas."
+                }
+            },
+            {
+                pergunta: "4. Se você pudesse passar um dia com o Justin Bieber, o que vocês fariam?",
+                opcoes: {
+                    A: "Fariam um piquenique em um lugar lindo.",
+                    B: "Fariam uma sessão de composição juntos ou ele te ensinaria algo sobre música/arte.",
+                    C: "Viajariam para um destino exótico ou fariam alguma atividade de aventura.",
+                    D: "Iriam a um evento de moda, fariam um tour por lojas de luxo ou ele te daria dicas de estilo."
+                }
+            },
+            {
+                pergunta: "5. Se você tivesse que criar um clipe com o Justin, como seria?",
+                opcoes: {
+                    A: "Um clipe com história de amor, tipo um mini-filme romântico.",
+                    B: "Um clipe conceitual, com animações, luzes e metáforas visuais.",
+                    C: "Um clipe gravado em vários países, com cenas de ação.",
+                    D: "Um clipe com vários looks estilosos, danças e muito close."
+                }
+            },
+            {
+                pergunta: "6. Qual seria a sua frase de bio no Instagram?",
+                opcoes: {
+                    A: "“O amor move tudo.”",
+                    B: "“Criando meu próprio universo.”",
+                    C: "“Vivendo cada momento como se fosse o último.”",
+                    D: "“Estilo é quem eu sou.”"
+                }
+            },
+            {
+                pergunta: "7. Em qual dessas fases do Justin você mais se inspira?",
+                opcoes: {
+                    A: "A fase romântica e apaixonada do álbum Justice.",
+                    B: "A fase criativa e experimental de Purpose.",
+                    C: "A fase ousada e energética de Believe e colaborações como Cold Water.",
+                    D: "A fase fashionista e ousada de Changes, com clipes estilosos."
+                }
+            },
+            {
+                pergunta: "8. Se você ganhasse um dia de folga inesperado, o que faria?",
+                opcoes: {
+                    A: "Faria uma surpresa para alguém que ama.",
+                    B: "Visitaria um museu, ou começaria um novo projeto.",
+                    C: "Pegaria o carro e sairia sem rumo.",
+                    D: "Iria às compras para renovar o guarda-roupa ou faria uma sessão de fotos."
+                }
+            },
+            {
+                pergunta: "9. Se você fosse compor uma música, qual seria o tema principal?",
+                opcoes: {
+                    A: "Uma declaração de amor ou uma canção sobre um relacionamento especial.",
+                    B: "Uma história imaginária, uma crítica social ou uma reflexão sobre a vida.",
+                    C: "A emoção de viver uma nova experiência ou a liberdade de viajar.",
+                    D: "A autoconfiança, a importância de se expressar."
+                }
+            },
+            {
+                pergunta: "10. Qual seu 'mood' favorito para ouvir música?",
+                opcoes: {
+                    A: "Com a pessoa amada, em um momento aconchegante.",
+                    B: "No meu canto, enquanto estou trabalhando em um projeto ou tendo novas ideias.",
+                    C: "Em uma viagem de carro com amigos, com o volume no máximo.",
+                    D: "Me arrumando para sair, para entrar no clima e me sentir estilosa(o)."
+                }
+            }
+        ];
+
+        // Definições das personalidades com descrições detalhadas
+        const personalidadesInfo = {
+            Romântico: {
+                nome: "O Romântico",
+                descricao: "Você é puro coração! Como o Justin em suas fases mais apaixonadas, você valoriza a conexão profunda, os gestos carinhosos e a beleza dos sentimentos. Seu mundo é mais colorido com o amor e a emoção. Você acredita em contos de fadas e busca a alma gêmea em tudo que faz.",
+                // imagem: "imagens/romantico.png" 
+                FkPersonalidade: "1"
+            },
+            Criativo: {
+                nome: "O Criativo",
+                descricao: "Assim como o Justin que se reinventa na música e na arte, você é uma mente inovadora! Adora explorar novas ideias, expressar sua originalidade e vê o mundo com uma perspectiva única. Seu lado criativo é sua maior força, e você está sempre buscando maneiras de transformar o comum em extraordinário.",
+                // imagem: "../assets/img/criativo.jpeg"
+                FkPersonalidade: "2"
+
+            },
+            Aventureiro: {
+                nome: "O Aventureiro",
+                descricao: "Você tem a alma livre! Inspirado no Justin que topa qualquer desafio e adora explorar novos lugares, você vive cada momento intensamente. A rotina não te prende, e a próxima aventura é sempre o seu destino. Você busca adrenalina e experiências que te tirem da zona de conforto.",
+                // imagem: "imagens/aventureiro.png"
+                FkPersonalidade: "3"
+
+            },
+            Divonico: {
+                nome: "O Divônico",
+                descricao: "Você arrasa no estilo, assim como o Justin com seus looks babadeiros! A moda é sua forma de expressão, você está sempre por dentro das tendências e adora montar produções que refletem sua personalidade. Você é um ícone de estilo e influencia todos ao seu redor com seu bom gosto.",
+                // imagem: "imagens/fashionista.png"
+                FkPersonalidade: "4"
+
+            }
+        };
+
+        let numeroDaQuestaoAtual = 0;
+        let pontuacaoPersonalidade = {
+            A: 0, // Romântico
+            B: 0, // Criativo
+            C: 0, // Aventureiro
+            D: 0  // Fashionista
+        };
+        let quantidadeDeQuestoes = perguntas.length;
+
+        function onloadEsconder() {
+            document.getElementById('jogo').style.display = "none";
+            document.getElementById('resultadoFinalContainer').style.display = "none";
+        }
+
+        function iniciarQuiz() {
+            document.getElementById('btnIniciarQuiz').style.display = "none";
+            document.getElementById('jogo').style.display = "flex"; // Usando flex como no exemplo
+            document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes;
+
+            carregarQuestaoAtual();
+        }
+
+        function carregarQuestaoAtual() {
+            // Garante que os radio buttons estejam desmarcados e habilitados para a nova questão
+            desmarcarRadioButtons();
+            habilitarAlternativas(true);
+
+            const questaoAtual = perguntas[numeroDaQuestaoAtual];
+
+            document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = numeroDaQuestaoAtual + 1;
+            document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+
+            // Preenche os labels das opções
+            document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.opcoes.A;
+            document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.opcoes.B;
+            document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.opcoes.C;
+            document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.opcoes.D;
+        }
+
+        function avancarQuestao() {
+            const options = document.getElementsByName("option");
+            let selectedOptionValue = null;
+            let radioSelecionado = false;
+
+            // Percorre os radio buttons para ver qual foi selecionado
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].checked) {
+                    selectedOptionValue = options[i].value;
+                    radioSelecionado = true;
+                    break;
+                }
+            }
+
+            if (!radioSelecionado) {
+                alert("Por favor, selecione uma opção para avançar.");
+                return; // Impede o avanço se nenhuma opção for selecionada
+            }
+
+            // Contabiliza a resposta para a personalidade correspondente
+            // As letras A, B, C, D já estão mapeadas para as personalidades na pontuacaoPersonalidade
+            pontuacaoPersonalidade[selectedOptionValue]++;
+
+            numeroDaQuestaoAtual++; // Avança para a próxima questão
+
+            if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
+                carregarQuestaoAtual(); // Carrega a próxima questão
+            } else {
+                finalizarQuiz(); // Finaliza o quiz se todas as perguntas foram respondidas
+            }
+        }
+
+        function habilitarAlternativas(habilitar) {
+            const options = document.getElementsByName("option");
+            for (let i = 0; i < options.length; i++) {
+                options[i].disabled = !habilitar; // Se habilitar é true, disabled é false (habilitado)
+            }
+        }
+
+        function desmarcarRadioButtons() {
+            const options = document.getElementsByName("option");
+            for (let i = 0; i < options.length; i++) {
+                options[i].checked = false;
+            }
+        }
+
+        function finalizarQuiz() {
+            document.getElementById('jogo').style.display = "none";
+            document.getElementById('resultadoFinalContainer').style.display = "flex"; // Usando flex como no exemplo
+
+            let personalidadeDominante = '';
+            let maiorPontuacao = -1;
+
+            // Encontra a personalidade com a maior pontuação
+            for (const key in pontuacaoPersonalidade) {
+                if (pontuacaoPersonalidade[key] > maiorPontuacao) {
+                    maiorPontuacao = pontuacaoPersonalidade[key];
+                    personalidadeDominante = key;
+                }
+            }
+
+            // Mapeia a letra dominante (A, B, C, D) para o nome completo da personalidade
+            let nomePersonalidadeFinal = "";
+            let descricaoPersonalidadeFinal = "";
+
+            if (personalidadeDominante === 'A') {
+                nomePersonalidadeFinal = personalidadesInfo.Romântico.nome;
+                descricaoPersonalidadeFinal = personalidadesInfo.Romântico.descricao;
+            } else if (personalidadeDominante === 'B') {
+                nomePersonalidadeFinal = personalidadesInfo.Criativo.nome;
+                descricaoPersonalidadeFinal = personalidadesInfo.Criativo.descricao;
+            } else if (personalidadeDominante === 'C') {
+                nomePersonalidadeFinal = personalidadesInfo.Aventureiro.nome;
+                descricaoPersonalidadeFinal = personalidadesInfo.Aventureiro.descricao;
+            } else if (personalidadeDominante === 'D') {
+                nomePersonalidadeFinal = personalidadesInfo.Fashionista.nome;
+                descricaoPersonalidadeFinal = personalidadesInfo.Fashionista.descricao;
+            }
+
+            document.getElementById('personalidadeFinal').innerHTML = nomePersonalidadeFinal;
+            document.getElementById('descricaoPersonalidade').innerHTML = descricaoPersonalidadeFinal;
+        }
+
+        function tentarNovamente() {
+            window.location.reload(); // Recarrega a página para reiniciar o quiz
+        }
+        fetch("http://localhost:3333/quiz/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            /*body: JSON.stringify({
+                nome: "Fulano",
+                perfil: "Criativo"
+            })*/
+        }).then(res => {
+            if (res.ok) {
+                alert("Cadastrado com sucesso!");
+            }
+        });
+
+    </script>
+</body>
+</html>
