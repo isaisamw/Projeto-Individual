@@ -16,4 +16,8 @@ router.post("/cadastrarPersonalidade", function (req, res) {
     usuarioController.cadastrarPersonalidade(req, res);
 });
 
+router.post("/dadosgraficos", function (req, res) {
+    usuarioController.dadosgraficos(req, res);
+});
+
 module.exports = router;
