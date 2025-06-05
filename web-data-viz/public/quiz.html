@@ -403,20 +403,59 @@
             // Mapeia a letra dominante (A, B, C, D) para o nome completo da personalidade
             let nomePersonalidadeFinal = "";
             let descricaoPersonalidadeFinal = "";
+            var FkPersonalidade = 0
 
             if (personalidadeDominante === 'A') {
                 nomePersonalidadeFinal = personalidadesInfo.Romântico.nome;
                 descricaoPersonalidadeFinal = personalidadesInfo.Romântico.descricao;
-            } else if (personalidadeDominante === 'B') {
+                FkPersonalidade = 1;
+            } 
+            else 
+            if (personalidadeDominante === 'B') {
                 nomePersonalidadeFinal = personalidadesInfo.Criativo.nome;
                 descricaoPersonalidadeFinal = personalidadesInfo.Criativo.descricao;
-            } else if (personalidadeDominante === 'C') {
+                FkPersonalidade = 2;
+
+            } 
+            else 
+            if (personalidadeDominante === 'C') {
                 nomePersonalidadeFinal = personalidadesInfo.Aventureiro.nome;
                 descricaoPersonalidadeFinal = personalidadesInfo.Aventureiro.descricao;
-            } else if (personalidadeDominante === 'D') {
-                nomePersonalidadeFinal = personalidadesInfo.Fashionista.nome;
-                descricaoPersonalidadeFinal = personalidadesInfo.Fashionista.descricao;
+              FkPersonalidade = 3;
+
+            } 
+            else
+             if (personalidadeDominante === 'D') {
+                nomePersonalidadeFinal = personalidadesInfo.Divonico.nome;
+                descricaoPersonalidadeFinal = personalidadesInfo.Divonico.descricao;
+                FkPersonalidade = 4;
+
             }
+            var fkUsuario = sessionStorage.ID_USUARIO;
+
+            fetch("/usuarios/cadastrarPersonalidade", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkUsuario: fkUsuario,
+                FkPersonalidade: FkPersonalidade
+            })
+        }).then(res => {
+            if (res.ok) {
+                console.log("Cadastrado com sucesso!");
+            }
+        })
+        .catch(error => {
+            console.log ('Estou no catch erro:', error)
+        });
+
+            console.log (fkUsuario)
+            console.log (FkPersonalidade)
+            console.log (nomePersonalidadeFinal)
+
+
 
             document.getElementById('personalidadeFinal').innerHTML = nomePersonalidadeFinal;
             document.getElementById('descricaoPersonalidade').innerHTML = descricaoPersonalidadeFinal;
@@ -425,20 +464,6 @@
         function tentarNovamente() {
             window.location.reload(); // Recarrega a página para reiniciar o quiz
         }
-        fetch("http://localhost:3333/quiz/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            /*body: JSON.stringify({
-                nome: "Fulano",
-                perfil: "Criativo"
-            })*/
-        }).then(res => {
-            if (res.ok) {
-                alert("Cadastrado com sucesso!");
-            }
-        });
 
     </script>
 </body>

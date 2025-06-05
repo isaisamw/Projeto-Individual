@@ -77,7 +77,40 @@ function cadastrar(req, res) {
     }
 }
 
+function cadastrarPersonalidade(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var fkUsuario = req.body.fkUsuario;
+    var fkPersonalidade = req.body.FkPersonalidade;
+
+    // Faça as validações dos valores
+    if (fkUsuario == undefined) {
+        res.status(400).send("Seu usuario está undefined!");
+    } else if (fkPersonalidade == undefined) {
+        res.status(400).send("Sua personalidade está undefined!");
+    } 
+     else {
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.cadastrarPersonalidade(fkUsuario, fkPersonalidade)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    cadastrarPersonalidade
 }
