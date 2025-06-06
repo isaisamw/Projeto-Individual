@@ -1,5 +1,6 @@
 body {
   font-family: 'Roboto', sans-serif;
+  background-image: url(./assets/imgs/colagem.jpg);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -11,14 +12,13 @@ body {
   color: #e0f7fa;
 }
 
-/* NOVO ESTILO PARA O TÍTULO DO QUIZ */
 #tituloQuiz {
   font-family: 'Montserrat', sans-serif;
-  font-size: 2.2em; /* Tamanho maior para o título principal */
-  color: #A8FF60; /* Verde-claro da sua paleta */
-  margin-bottom: 30px; /* Espaço abaixo do título e acima do botão Iniciar */
+  font-size: 2.2em; 
+  color: #A8FF60; 
+  margin-bottom: 30px; 
   text-align: center;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra para destaque */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 #quizContainer {
