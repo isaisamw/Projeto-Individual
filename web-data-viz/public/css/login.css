@@ -1,23 +1,23 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background-image: url('../assets/imgs/justice.JPG');
+  background-image: url(../assets/imgs/stay.JPG);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   font-family: 'Roboto', sans-serif;
-  background-color: #D8F5F2;
-  min-height: 100vh;  
+  background-color: #0F1F1C;
+  color: #e0f7fa;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .login, .cadastro {
-  background-color: white;
+  background-color: rgba(16, 59, 50, 0.95);
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
   padding: 40px;
   width: 100%;
   max-width: 500px;
@@ -25,39 +25,32 @@ body {
 
 .card h2 {
   font-family: 'Montserrat', sans-serif;
-  color: #3A6B6A;
+  color: #A8FF60;
   margin-bottom: 20px;
   text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
 }
 
-.formulario .campo {
-  margin-bottom: 20px;
-}
-
-.formulario .campo span {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #3A6B6A;
-}
-
+.formulario .campo { margin-bottom: 20px; }
+.formulario .campo span { display: block; font-weight: 600; margin-bottom: 6px; color: #e0f7fa; }
 .formulario input, .formulario select {
   width: 100%;
   padding: 12px;
-  border: 2px solid #70A6A0;
+  border: 2px solid #144A45;
   border-radius: 8px;
   outline: none;
   font-size: 1em;
+  background-color: #08211E;
+  color: #e0f7fa;
 }
-
 .formulario input:focus, .formulario select:focus {
-  border-color: #26C6DA;
-  box-shadow: 0 0 0 2px rgba(38, 198, 218, 0.2);
+  border-color: #00e676;
+  box-shadow: 0 0 0 2px rgba(0, 230, 118, 0.4);
 }
 
 .botao {
-  background-color: #26C6DA;
-  color: white;
+  background-color: #00e676;
+  color: #0F1F1C;
   font-size: 1em;
   padding: 12px;
   width: 100%;
@@ -67,27 +60,39 @@ body {
   font-weight: bold;
   transition: background 0.3s ease;
 }
+.botao:hover { background-color: #1de9b6; }
 
-.botao:hover {
-  background-color: #00BCD4;
-}
-
-.alerta_erro {
-  margin-bottom: 10px;
-}
-
+.alerta_erro { margin-bottom: 10px; }
 .card_erro {
   display: none;
-  background-color: #ffcdd2;
-  color: #b71c1c;
+  background-color: #b71c1c;
+  color: #ffebee;
   padding: 10px;
   border-radius: 6px;
   text-align: center;
   font-weight: bold;
 }
-
 .loading-div {
   display: none;
   justify-content: center;
   padding: 20px;
+}
+
+.form-question {
+  margin-top: 20px; 
+  text-align: center; 
+  font-size: 0.95em; 
+  color: #f0f0f0; 
+}
+
+.form-link {
+  color: #A8FF60; 
+  font-weight: bold; 
+  text-decoration: none; 
+  transition: color 0.3s ease; 
+}
+
+.form-link:hover {
+  color: #00e676; 
+  text-decoration: underline; 
 }

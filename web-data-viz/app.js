@@ -44,6 +44,3 @@ app.listen(PORTA_APP, function () {
     \tSe .:producao:. você está se conectando ao banco remoto. \n\n
     \t\tPara alterar o ambiente, comente ou descomente as linhas 1 ou 2 no arquivo 'app.js'\n\n`);
 });
-
-var quizRouter = require("./src/routes/quiz");
-app.use("/quiz", quizRouter);

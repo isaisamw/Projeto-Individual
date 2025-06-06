@@ -55,3 +55,28 @@ body {
   color: #aaa;
   font-style: italic;
 }
+
+.Voltar {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1em;
+  color: #A8FF60;
+  text-decoration: none;
+  padding: 10px 15px;
+  border: 2px solid #A8FF60;
+  border-radius: 8px;
+  background-color: rgba(16, 59, 50, 0.7);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.Voltar:hover {
+  color: #00e676;
+  border-color: #00e676;
+  background-color: rgba(0, 230, 118, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}

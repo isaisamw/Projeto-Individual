@@ -2,14 +2,35 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gráfico de Personalidade</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/dashboards.css">
+
 </head>
 <body>
-    <h2>Resultado do seu perfil</h2>
 
-    <canvas id="graficoPizza" width="400" height="400"></canvas>
+  <div class="grafico-container">
+    <h2>Seu Perfil de Personalidade</h2>
+    <canvas id="graficoPizza"></canvas>
+  </div>
 
-    <script src="grafico.js"></script>
+  <div class = "KPI1">
+    <h2>Tentativas totais do quiz</h2>
+    <div id="tentativastotais"></div>
+  </div>
+
+  <div class = "KPI2">
+    <h2>Personalidade atual</h2>
+   <div id="tentativastotais"></div>
+  </div>
+
+  <div class = "KPI3">
+    <h2>Personalidade predominante de todos os usuários</h2>
+  <div id="tentativastotais"></div>
+
+  </div>
+
+  <script src="grafico.js"></script>
 </body>
 </html>

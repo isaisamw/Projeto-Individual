@@ -34,8 +34,71 @@ function cadastrarPersonalidade(fkUsuario, fkPersonalidade) {
     return database.executar(instrucaoSql);
 }
 
+function contarTentativas(fkUsuario) {
+    console.log("ACESSEI contarTentativas");
+
+    var instrucaoSql = `
+        SELECT count(idResultado) AS total_tentativas
+        FROM resultado_teste
+        WHERE fkUsuario = ${fkUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+function tentativastotais(fkUsuario) {
+    const instrucao = `
+        SELECT COUNT(*) AS tentativastotais
+        FROM resultado_teste    
+        WHERE fkUsuario = ${fkUsuario};
+    `;
+    return database.executar(instrucao);
+}
+
+function personalidadeAtual(fkUsuario) {
+    const instrucao = `
+        SELECT fkPersonalidade AS personalidade
+        FROM resultado_teste
+        WHERE fkUsuario = ${fkUsuario}
+        ORDER BY idResultado DESC
+        LIMIT 1;
+    `;
+    return database.executar(instrucao);
+}
+
+function personalidadePredominante() {
+    const instrucao = `
+        SELECT fkPersonalidade AS personalidade, COUNT(*) AS qtd
+        FROM resultado_teste
+        GROUP BY fkPersonalidade
+        ORDER BY qtd DESC
+        LIMIT 1;
+    `;
+    return database.executar(instrucao);
+}
+
+function dadosgraficos(fkUsuario) {
+    const instrucao = `
+        SELECT 
+            SUM(CASE WHEN fkPersonalidade = 1 THEN 1 ELSE 0 END) AS romantico,
+            SUM(CASE WHEN fkPersonalidade = 2 THEN 1 ELSE 0 END) AS criativo,
+            SUM(CASE WHEN fkPersonalidade = 3 THEN 1 ELSE 0 END) AS aventureiro,
+            SUM(CASE WHEN fkPersonalidade = 4 THEN 1 ELSE 0 END) AS fashionista
+        FROM resultado_teste
+        WHERE fkUsuario = ${fkUsuario};
+    `;
+    return database.executar(instrucao);
+}
+
+
 module.exports = {
     autenticar,
     cadastrar,
-    cadastrarPersonalidade
+    cadastrarPersonalidade, // função de INSERT
+    tentativastotais,       // função de COUNT
+    contarTentativas,       // nova função renomeada
+    personalidadeAtual,
+    personalidadePredominante,
+    dadosgraficos
 };

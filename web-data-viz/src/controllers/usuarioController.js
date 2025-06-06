@@ -109,8 +109,54 @@ function cadastrarPersonalidade(req, res) {
     }
 }
 
+function tentativastotais(req, res) {
+    var fkUsuario = req.params.fkUsuario;
+    usuarioModel.tentativastotais(fkUsuario)
+    .then (resultado => {
+        res.json(resultado);
+    })
+    .catch (function (erro) {
+        console.log (erro);
+        console.log ("Houve um erro ao carregar as tentativas", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage)
+    })
+}
+
+function personalidadeAtual(req, res) {
+    var fkUsuario = req.params.fkUsuario;
+    usuarioModel.personalidadeAtual(fkUsuario)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function personalidadePredominante(req, res) {
+    usuarioModel.personalidadePredominante()
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function dadosgraficos(req, res) {
+    var fkUsuario = req.params.fkUsuario;
+    usuarioModel.dadosgraficos(fkUsuario)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     autenticar,
     cadastrar,
-    cadastrarPersonalidade
+    cadastrarPersonalidade,
+    tentativastotais,
+    personalidadeAtual,
+    personalidadePredominante,
+    dadosgraficos
 }

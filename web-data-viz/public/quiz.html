@@ -10,6 +10,7 @@
 
 <body onload="onloadEsconder()">
     <div id="quizContainer">
+        <h1 id="tituloQuiz">Teste de Personalidade: Qual Justin Bieber você seria?</h1> 
         <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
 
         <div id="jogo" class="width-fit-content flex-colunar border-secondary">
@@ -50,8 +51,11 @@
             </div>
         </div>
 
-        <div id="resultadoFinalContainer" class="flex-colunar width-fit-content border-primary">
+       <div id="resultadoFinalContainer" class="flex-colunar width-fit-content border-primary">
             <h2 id="tituloResultado">Seu Resultado:</h2>
+            <div id="imagemPersonalidadeContainer"> 
+                <img id="imagemPersonalidade" src="" alt="Imagem da Personalidade" style="max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 20px;">
+            </div>
             <p id="personalidadeFinal" class="text-bold"></p>
             <p id="descricaoPersonalidade"></p>
             <button onclick="tentarNovamente()" id="btnTentarNovamente">Tentar novamente</button>
@@ -59,122 +63,6 @@
     </div>
 
     <script>
-        /*  function obterDadosGrafico() {
-        fetch(`/usuarios/dadosgrafico`, { cache: 'no-store' })
-        .then(response => response.ok ? response.json() : Promise.reject(response.statusText))
-        .then(resposta => {
-          console.log(resposta)
-          plotargrafico(resposta);
-        })
-        .catch(err => console.error('Erro teste:', err));
-    }
-    
-    
-    
-      function plotargrafico(resposta) {
-    
-    
-      vt_tipo = [];
-      vt_qtd = [];
-    
-      for (let i = 0; i < resposta.length; i++) {
-        vt_tipo.push(resposta[i].tipo);
-        vt_qtd.push(resposta[i].qtdTipoDoador);
-      }
-      console.log(vt_tipo);
-      console.log(vt_qtd);
-    
-    
-      var maior = 0;
-      var maiordoador = '';
-      var menor = 99;
-      var menordoador = '';
-      var totaluser = 0;
-    
-    
-      for (var i = 0; i < vt_qtd.length; i++) {
-    
-        totaluser += vt_qtd[i]
-        if (vt_qtd[i] > maior) {
-          maior = vt_qtd[i]
-          maiordoador = vt_tipo[i]
-        }
-        if (vt_qtd[i] < menor) {
-          menor = vt_qtd[i]
-          menordoador = vt_tipo[i]
-        }
-    
-    
-      }
-    
-      for (var i = 0; i < vt_qtd.length; i++) {
-        
-        var resultado = vt_qtd[i]/totaluser*100
-        vt_qtd[i] = resultado.toFixed(2)
-        
-      }
-    
-      kpiuser.innerHTML = totaluser;
-      kpimaior.innerHTML = maiordoador;
-      kpimenor.innerHTML = menordoador;
-    
-    
-    
-    
-      const ctz = document.getElementById("barras1")
-      const grafico = new Chart(ctz, {
-        type: 'doughnut',
-        data: {
-          labels: vt_tipo,
-          datasets: [{
-            data: vt_qtd,
-            backgroundColor: ['#f14b47', '#eb8bce', '#38b6ff','#00d929'],
-            borderColor: '#00aeef',
-            borderWidth: 10
-          }]
-        },
-        options: {
-          plugins: {
-            title: {
-              display: true,
-              text: 'Porcentagem de Cada Tipo de Doador',
-              color: '#ffffff',
-              font: {
-                size: 25,
-                family: 'Arial',
-                weight: 'bold'
-              },
-              padding: {
-                top: 10,
-                bottom: 10
-              }
-            },
-            legend: {
-              display: false,
-              position: 'left',
-              labels: {
-                color: '#ffffff'
-              }
-            },
-            datalabels: {
-              color: '#fff',
-              font: {
-                weight: 'bold',
-                size: 26
-              },
-              formatter: function (value, context) {
-                return value + "%"
-              }
-            },
-    
-          },
-          cutout: '60%'
-        },
-        plugins: [ChartDataLabels]
-      });
-    
-      } */
-
 
         const perguntas = [
             {
@@ -269,7 +157,6 @@
             }
         ];
 
-        // Definições das personalidades com descrições detalhadas
         const personalidadesInfo = {
             Romântico: {
                 nome: "O Romântico",
@@ -292,7 +179,7 @@
 
             },
             Divonico: {
-                nome: "O Divônico",
+                nome: "O Fashionista",
                 descricao: "Você arrasa no estilo, assim como o Justin com seus looks babadeiros! A moda é sua forma de expressão, você está sempre por dentro das tendências e adora montar produções que refletem sua personalidade. Você é um ícone de estilo e influencia todos ao seu redor com seu bom gosto.",
                 // imagem: "imagens/fashionista.png"
                 FkPersonalidade: "4"
@@ -310,20 +197,22 @@
         let quantidadeDeQuestoes = perguntas.length;
 
         function onloadEsconder() {
-            document.getElementById('jogo').style.display = "none";
-            document.getElementById('resultadoFinalContainer').style.display = "none";
-        }
+    document.getElementById('jogo').style.display = 'none';
+    document.getElementById('resultadoFinalContainer').style.display = 'none';
+    document.getElementById('tituloQuiz').style.display = 'block'; 
+    document.getElementById('btnIniciarQuiz').style.display = 'block';
+}
 
         function iniciarQuiz() {
-            document.getElementById('btnIniciarQuiz').style.display = "none";
-            document.getElementById('jogo').style.display = "flex"; // Usando flex como no exemplo
+            document.getElementById('tituloQuiz').style.display = 'none'; 
+            document.getElementById('btnIniciarQuiz').style.display = 'none'; 
+            document.getElementById('jogo').style.display = 'flex';
             document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes;
 
             carregarQuestaoAtual();
         }
 
         function carregarQuestaoAtual() {
-            // Garante que os radio buttons estejam desmarcados e habilitados para a nova questão
             desmarcarRadioButtons();
             habilitarAlternativas(true);
 
@@ -332,7 +221,6 @@
             document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = numeroDaQuestaoAtual + 1;
             document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
 
-            // Preenche os labels das opções
             document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.opcoes.A;
             document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.opcoes.B;
             document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.opcoes.C;
@@ -344,7 +232,6 @@
             let selectedOptionValue = null;
             let radioSelecionado = false;
 
-            // Percorre os radio buttons para ver qual foi selecionado
             for (let i = 0; i < options.length; i++) {
                 if (options[i].checked) {
                     selectedOptionValue = options[i].value;
@@ -355,7 +242,7 @@
 
             if (!radioSelecionado) {
                 alert("Por favor, selecione uma opção para avançar.");
-                return; // Impede o avanço se nenhuma opção for selecionada
+                return; 
             }
 
             // Contabiliza a resposta para a personalidade correspondente
@@ -365,7 +252,7 @@
             numeroDaQuestaoAtual++; // Avança para a próxima questão
 
             if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
-                carregarQuestaoAtual(); // Carrega a próxima questão
+                carregarQuestaoAtual(); 
             } else {
                 finalizarQuiz(); // Finaliza o quiz se todas as perguntas foram respondidas
             }
@@ -374,7 +261,7 @@
         function habilitarAlternativas(habilitar) {
             const options = document.getElementsByName("option");
             for (let i = 0; i < options.length; i++) {
-                options[i].disabled = !habilitar; // Se habilitar é true, disabled é false (habilitado)
+                options[i].disabled = !habilitar; 
             }
         }
 
@@ -387,7 +274,7 @@
 
         function finalizarQuiz() {
             document.getElementById('jogo').style.display = "none";
-            document.getElementById('resultadoFinalContainer').style.display = "flex"; // Usando flex como no exemplo
+            document.getElementById('resultadoFinalContainer').style.display = "flex"; 
 
             let personalidadeDominante = '';
             let maiorPontuacao = -1;
@@ -426,8 +313,8 @@
             } 
             else
              if (personalidadeDominante === 'D') {
-                nomePersonalidadeFinal = personalidadesInfo.Divonico.nome;
-                descricaoPersonalidadeFinal = personalidadesInfo.Divonico.descricao;
+                nomePersonalidadeFinal = personalidadesInfo.Fashionista.nome;
+                descricaoPersonalidadeFinal = personalidadesInfo.Fashionista.descricao;
                 FkPersonalidade = 4;
 
             }

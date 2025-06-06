@@ -1,46 +1,57 @@
-// Quantidade de respostas por perfil
-let respostas = {
-    romantico: 5,
-    criativo: 3,
-    aventureiro: 1,
-    fashionista: 1
-};
+var fkUsuario = sessionStorage.ID_USUARIO;
+var b_usuario = sessionStorage.NOME_USUARIO;
 
-// Soma total de respostas
-let total = respostas.romantico + respostas.criativo + respostas.aventureiro + respostas.fashionista;
+// Chamando funções assim que carregar
+tentativas();
+personalidadeAtual();
+personalidadePredominante();
+mostrarGraficoPizza();
 
-let porcentagens = [
-    (respostas.romantico / total) * 100,
-    (respostas.criativo / total) * 100,
-    (respostas.aventureiro / total) * 100,
-    (respostas.fashionista / total) * 100
-];
+function tentativas() {
+    fetch(`/usuarios/tentativastotais/${fkUsuario}`)
+        .then(res => res.json())
+        .then(resposta => {
+            var qtd = resposta[0].tentativastotais;
+            document.getElementById("tentativastotais").innerText = `${qtd}`;
+        });
+}
 
-const ctx = document.getElementById('graficoPizza').getContext('2d');
-const graficoPizza = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ['Romântico', 'Criativo', 'Aventureiro', 'Fashionista'],
-        datasets: [{
-            data: porcentagens,
-            backgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#FFCE56', 
-                '#4BC0C0'  
-            ]
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return `${context.label}: ${context.formattedValue}%`;
-                    }
+function personalidadeAtual() {
+    fetch(`/usuarios/personalidadeAtual/${fkUsuario}`)
+        .then(res => res.json())
+        .then(resposta => {
+            document.querySelector(".KPI2").innerHTML += `<p>${resposta[0].personalidade}</p>`;
+        });
+}
+
+function personalidadePredominante() {
+    fetch(`/usuarios/personalidadePredominante`)
+        .then(res => res.json())
+        .then(resposta => {
+            document.querySelector(".KPI3").innerHTML += `<p>${resposta[0].personalidade}</p>`;
+        });
+}
+
+function mostrarGraficoPizza() {
+    fetch(`/usuarios/dadosgraficos/${fkUsuario}`)
+        .then(res => res.json())
+        .then(dados => {
+            const ctx = document.getElementById('graficoPizza');
+            const grafico = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Romântico', 'Criativo', 'Aventureiro', 'Fashionista'],
+                    datasets: [{
+                        label: 'Perfil',
+                        data: [
+                            dados[0].romantico,
+                            dados[0].criativo,
+                            dados[0].aventureiro,
+                            dados[0].fashionista
+                        ],
+                        backgroundColor: ['#ff6384', '#36a2eb', '#ffcd56', '#8e44ad']
+                    }]
                 }
-            }
-        }
-    }
-});
+            });
+        });
+}

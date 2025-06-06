@@ -9,10 +9,6 @@ html {
   overflow-x: hidden;
 }
 
-section {
-  scroll-margin-top: 90px;
-}
-
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #0F1F1C;
@@ -25,12 +21,28 @@ main {
   padding-top: 90px;
 }
 
+section {
+  scroll-margin-top: 90px;
+}
+
 a {
   text-decoration: none;
+  color: #e0f7fa;
+}
+
+a:hover {
+  color: #76ff03;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #A8FF60;
 }
 
 header {
-  background: rgba(16, 59, 50, 0.95);
+  background: rgba(16, 59, 50, 0.599);
   padding: 15px 40px;
   display: flex;
   justify-content: space-between;
@@ -39,7 +51,7 @@ header {
   width: 100%;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 header .logo {
@@ -47,17 +59,11 @@ header .logo {
 }
 
 header nav a {
-  color: #e0f7fa;
   font-weight: bold;
   margin-left: 30px;
-  transition: 0.3s;
   display: inline-flex;
   align-items: center;
   gap: 5px;
-}
-
-header nav a:hover {
-  color: #76ff03;
 }
 
 header nav img,
@@ -69,6 +75,7 @@ header nav img,
   margin-left: 5px;
   margin-top: -2px;
 }
+
 
 .welcome-section {
   background-image: url('../assets/imgs/fundo.png');
@@ -100,34 +107,34 @@ header nav img,
 }
 
 .welcome-section h1 {
-  font-family: 'Montserrat', sans-serif;
   font-size: 3.5em;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 .welcome-section p {
   font-size: 1.3em;
   margin-bottom: 30px;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
 }
 
+
 .btn {
-  background: #00e676;
+  background: #13ab62;
   color: #0F1F1C;
   padding: 12px 25px;
   border-radius: 50px;
   font-weight: bold;
-  transition: 0.3s;
   border: none;
   cursor: pointer;
   font-size: 1.1em;
 }
 
 .btn:hover {
-  background: #1de9b6;
+  background: #0d5745;
   transform: translateY(-2px);
 }
+
 
 .about-section {
   display: flex;
@@ -143,9 +150,7 @@ header nav img,
 }
 
 .about-section h2 {
-  font-family: 'Montserrat', sans-serif;
   font-size: 2.5em;
-  color: #A8FF60;
   margin-bottom: 20px;
 }
 
@@ -157,31 +162,80 @@ header nav img,
 .about-section img {
   max-width: 100%;
   border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.about-and-values-wrapper {
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+  align-items: flex-start; 
+  gap: 40px; 
+  padding: 60px 40px; 
+  background-color: #144A45; 
+}
+
+.content-block {
+  flex: 1;
+  min-width: 300px; 
+  max-width: 48%; 
+  padding: 30px;
+  background-color: rgba(16, 59, 50, 0.95); 
+  border-radius: 12px; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+}
+
+.content-block .text-content,
+.content-block .valores-content {
+  text-align: center; 
+}
+
+.content-block h2 {
+  font-size: 2.2em; 
+  margin-bottom: 15px;
+  color: #A8FF60; 
+}
+
+.content-block p {
+  font-size: 1em; 
+  line-height: 1.6; 
+  margin-bottom: 0; 
 }
 
 .highlights-section {
   background-image: url('../assets/imgs/sorry.JPG');
-  padding: 60px 20px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 100px 20px;
   text-align: center;
+  position: relative;
 }
 
-  .highlights-section h2 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2.5em;
-  color: #A8FF60;
-  margin-bottom: 30px;
+.highlights-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 0;
+}
+
+.highlights-section h2 {
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
 }
 
 .highlights-block {
-  box-shadow: 
-    5px 5px 0px #08211E,8px 8px 15px rgba(0, 0, 0, 0.6);
-  background: #0d554a;
-  padding: 30px;
-  border-radius: 10px;
-  max-width: 700px;
-  margin: 0 auto;
+  box-shadow: 8px 8px 0px #08211E, 12px 12px 25px rgba(0, 0, 0, 0.7);
+  background: rgba(12, 68, 60, 0.95);
+  padding: 40px;
+  border-radius: 15px;
+  max-width: 800px;
+  margin: auto;
   color: #e0f7fa;
+  position: relative;
+  z-index: 1;
 }
 
 .highlights-block ul {
@@ -189,16 +243,19 @@ header nav img,
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 25px;
 }
 
 .highlights-block li {
-  font-size: 1.2em;
-  flex-basis: 45%;
-  min-width: 250px;
+  font-size: 1.3em;
+  flex-basis: 48%;
+  min-width: 280px;
   text-align: center;
+  background: #144A45;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(7, 13, 1, 0.3);
 }
-
 
 .timeline-section {
   padding: 60px 20px;
@@ -207,15 +264,13 @@ header nav img,
 }
 
 .timeline-section h2 {
-  font-family: 'Montserrat', sans-serif;
   font-size: 2.5em;
-  color: #A8FF60;
   margin-bottom: 40px;
 }
 
 .timeline-container {
   max-width: 1000px;
-  margin: 0 auto;
+  margin: auto;
   position: relative;
   padding-left: 60px;
   border-left: 3px solid #00e676;
@@ -246,22 +301,21 @@ header nav img,
   z-index: 2;
   padding: 60px 30px;
   max-width: 800px;
-  margin: 0 auto;
+  margin: auto;
   text-align: center;
 }
 
 .timeline-content h3 {
-  font-family: 'Montserrat', sans-serif;
   font-size: 1.8em;
   margin-bottom: 10px;
   color: white;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .timeline-content p {
   font-size: 1.1em;
   line-height: 1.6;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .timeline-dot {
@@ -281,7 +335,7 @@ header nav img,
   background-color: #00e676;
   border: 3px solid white;
   border-radius: 50%;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .timeline-year {
@@ -300,15 +354,13 @@ header nav img,
 }
 
 .hits-section h2 {
-  font-family: 'Montserrat', sans-serif;
   font-size: 2.5em;
-  color: #A8FF60;
   margin-bottom: 40px;
 }
 
 .carousel-container {
   max-width: 900px;
-  margin: 0 auto;
+  margin: auto;
   overflow: hidden;
   position: relative;
   border-radius: 10px;
@@ -328,7 +380,6 @@ header nav img,
 }
 
 .carousel-item h3 {
-  font-family: 'Montserrat', sans-serif;
   color: #A8FF60;
   margin-bottom: 15px;
 }
@@ -336,7 +387,7 @@ header nav img,
 .carousel-item p {
   font-size: 1.1em;
   max-width: 700px;
-  margin: 0 auto;
+  margin: auto;
   color: #f0f0f0;
 }
 
@@ -348,7 +399,6 @@ footer {
 }
 
 footer a {
-  color: #e0f7fa;
   font-weight: bold;
   display: inline-flex;
   align-items: center;

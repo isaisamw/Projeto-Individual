@@ -21,6 +21,8 @@
   <p class="texto-sorteando">Sorteando curiosidade...</p>
 </div>
 
+<a href="inicio.html" class="Voltar">← Voltar para o Início</a>
+
 </body>
 </html>
   <script>
@@ -53,20 +55,16 @@ function mostrarCuriosidade() {
   const titulo = document.getElementById("tituloCuriosidade");
   const texto = document.getElementById("textoCuriosidade");
 
-  // Esconde curiosidade e mostra "carregando"
   areaCuriosidade.style.display = "none";
   areaCarregando.style.display = "block";
 
-  // Aguarda 3 segundos para "sortear"
   setTimeout(() => {
     const numero = Math.floor(Math.random() * curiosidades.length);
     const curiosidade = curiosidades[numero];
 
-    // Atualiza os textos
     titulo.innerHTML = curiosidade.titulo;
     texto.innerHTML = curiosidade.texto;
 
-    // Esconde carregamento e mostra curiosidade
     areaCarregando.style.display = "none";
     areaCuriosidade.style.display = "block";
   }, 2000);

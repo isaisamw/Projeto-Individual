@@ -42,6 +42,11 @@
                     </div>
 
                     <button class="botao" onclick="cadastrar()">Cadastrar</button>
+
+                <p class="form-question">
+    <a href="login.html" class="form-link">Já tem Cadastro? Faça seu login.</a>
+                </p>
+
                 </div>
                 <div id="div_erros_login"></div>
             </div>
@@ -56,8 +61,7 @@
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
         var confirmarVar = confirmacao_senha_input.value;
-        // var msgErro = document.getElementById("mensagem_erro");
-        // var msgCard = document.getElementById("cardErro");
+     
 
         if (
             nomeVar == "" ||
@@ -66,8 +70,6 @@
             confirmarVar == ""
         ) {
             alert('Preencha todos os campos obrigatórios.')
-            // msgCard.style.display = "block";
-            // msgErro.innerHTML = "Preencha todos os campos obrigatórios.";
             return false;
         }
 

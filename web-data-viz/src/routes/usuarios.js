@@ -3,7 +3,6 @@ var router = express.Router();
 
 var usuarioController = require("../controllers/usuarioController");
 
-//Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
@@ -16,8 +15,21 @@ router.post("/cadastrarPersonalidade", function (req, res) {
     usuarioController.cadastrarPersonalidade(req, res);
 });
 
-router.post("/dadosgraficos", function (req, res) {
+router.get("/tentativastotais/:fkUsuario", function (req, res) {
+    usuarioController.tentativastotais(req, res);
+});
+
+router.get("/personalidadeAtual/:fkUsuario", function (req, res) {
+    usuarioController.personalidadeAtual(req, res);
+});
+
+router.get("/personalidadePredominante", function (req, res) {
+    usuarioController.personalidadePredominante(req, res);
+});
+
+router.get("/dadosgraficos/:fkUsuario", function (req, res) {
     usuarioController.dadosgraficos(req, res);
 });
+
 
 module.exports = router;
